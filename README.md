@@ -1,91 +1,112 @@
-# Projeto safeLevadas
-
-This README is also available in English. Click here
+# Projeto BirthPlanOO
 
 ## Contexto
+O projeto BirthPlanOO aborda questões no Serviço Nacional de Saúde (SNS) de Portugal relacionadas com a organização e otimização dos serviços de maternidade. Apesar do elevado financiamento, o SNS enfrenta desafios organizacionais significativos que afetam os serviços de saúde materna e neonatal. Este projeto visa desenvolver uma aplicação de software para auxiliar os hospitais na gestão eficiente dos cuidados de maternidade.
 
-O projeto safeLevadas é desenvolvido no contexto do curso de Programação 2 (LTI) do Departamento de Informática da Faculdade de Ciências de Lisboa, no ano letivo 2023/2024. Este projeto tem como objetivo criar uma aplicação em Python 3 chamada safeLevadas, destinada a encontrar os percursos mais rápidos entre dois pontos na rede de levadas da ilha da Madeira, melhorando o suporte e resgate de caminhantes.
+## Objetivo
+Desenvolver a aplicação BirthPlanOO usando Python 3. O software apoia as equipas de enfermagem no encaminhamento de grávidas para os serviços de maternidade e ajuda a gerir a atribuição de assistência ao parto a médicos especialistas, hospitais e equipas.
 
-## Descrição
-
-O safeLevadas é um software projetado para apoiar as equipas de resgate na determinação do percurso mais rápido entre dois pontos geolocalizados na rede de levadas da Madeira. Este sistema é essencial para auxiliar na rápida resposta a chamadas de socorro de caminhantes perdidos ou em perigo.
 ## Funcionalidades
+1. **Dados de Entrada**:
+    - **Lista de Médicos**: Um ficheiro que detalha os médicos disponíveis e seus horários.
+    - **Calendário**: Um ficheiro que contém o calendário atual de assistências.
+    - **Pedidos**: Um ficheiro que lista novos pedidos de assistência.
 
-    Entrada: O programa recebe dois ficheiros de entrada:
-        inputFile1.txt: Ficheiro com a rede de levadas.
-        inputFile2.txt: Ficheiro com pares de estações para as quais se deseja calcular os percursos mais rápidos.
+2. **Dados de Saída**:
+    - **Lista de Médicos Atualizada**: Reflete as novas atribuições e horários.
+    - **Calendário Atualizado**: Inclui novas assistências atribuídas e remove tarefas concluídas.
 
-    Saída: O programa gera um ficheiro de saída com os resultados dos percursos calculados:
-        outputFile.txt: Ficheiro com os tempos de percurso e sequências de estações.
+3. **Funcionalidade**:
+    - O programa processa os ficheiros de entrada, atualiza os calendários e a disponibilidade dos médicos, e gera novos ficheiros de saída.
+    - Prioriza os pedidos com base na urgência e disponibilidade dos médicos.
+    - Lida com exceções para inconsistências entre os nomes dos ficheiros e os cabeçalhos.
 
-## Como Executar
+## Exemplos de Ficheiros de Entrada
+- `doctors14h00.txt`
+  ```
+  Organization: SmartH
+  Hour: 14h00
+  Day: 08:12:2023
+  Doctors:
+  Manuel Frias, 2, 14h25, 85, 36h28
+  Carlos Sousa, 3, 12h10, 60, 28h34
+  ```
+- `schedule14h00.txt`
+  ```
+  Organization: SmartH
+  Hour: 14h00
+  Day: 08:12:2023
+  Schedule:
+  14h00, Anabela Rocha, Carlos Sousa
+  14h25, Daniela Silva, Manuel Frias
+  ```
+- `requests14h30.txt`
+  ```
+  Organization: SmartH
+  Hour: 14h30
+  Day: 08:12:2023
+  Mothers:
+  Zulmira Zacarias, 33, red, low
+  ```
 
-Para executar o software, utilize o seguinte comando na linha de comandos:
+## Exemplos de Ficheiros de Saída
+- Lista de médicos atualizada: `doctors14h30.txt`
+- Calendário atualizado: `schedule14h30.txt`
 
-```bash
-python safeLevadas.py inputFile1.txt inputFile2.txt outputfile.txt
+## Desenvolvimento
+### Estrutura do Projeto
+- A aplicação é composta por classes relevantes para a resolução do projeto.
+- O programa principal, `refresh.py`, contém uma função chamada `plan` que assegura o funcionamento correto da aplicação.
+
+### Tratamento de Erros
+- **Erro de Cabeçalho de Ficheiro**: Lança uma exceção se houver uma inconsistência entre o nome do ficheiro e o cabeçalho quanto ao âmbito (doctors, schedule ou requests).
+
+### Linguagem
+- Linguagem de entrada/saída: Inglês
+- Documentação e comentários no código: Inglês (usando notação camelCase)
+
+## Execução
+Execute o software usando o comando:
+```sh
+python3 refresh.py inputFile1 inputFile2 inputFile3
 ```
-Certifique-se de que a ordem dos ficheiros de entrada é a correta.
+- `inputFile1`: Ficheiro da lista de médicos
+- `inputFile2`: Ficheiro do calendário de assistências
+- `inputFile3`: Ficheiro da lista de pedidos de assistência
 
-inputFile1.txt -> Rede de levadas, no formato especificado.
+Os ficheiros de saída serão criados no mesmo diretório dos ficheiros de entrada e do código, nomeados de acordo com a hora atualizada.
 
-inputFile2.txt -> Pares de estações para os quais se deseja calcular os percursos.
-Exemplo de Estrutura de Entrada e Saída
-Estrutura de inputFile1.txt
-```less
-#Id, Name, Connected:
-A, Seixal, [(R, 15), (M, 8), (B, 12)]
-C, Pico Ruivo, [(GJ, 32), (I, 5)]
-D, Queimadas, [(Z, 18), (AC, 11)]
-E, Ponta do Pargo, [(DW, 13)]
-```
+## Grupos e Submissão
+### Formação de Grupos
+- Grupos de exatamente 2 alunos.
+- Registo dos grupos via o site Moodle da disciplina.
 
-## Estrutura de inputFile2.txt
+### Submissão
+- Submeter um ficheiro ZIP nomeado `birthPlanGroupN.zip` (N é o número do grupo).
+- Incluir:
+    - Relatório de implementação (`relGroupN.pdf`)
+    - Ficheiros de código fonte
+    - Ficheiros de teste usados
 
-```less
-Cedro - Queimada
-Ponta do Pargo - Calheta
-Queimada - Boavista
-Areeiro – Pico Ruivo
-Moinho - Rabacal
-```
+### Estrutura do Relatório
+1. Número do grupo
+2. Detalhes dos membros (nome e número de aluno)
+3. Detalhes das contribuições de cada membro
+4. Funções extra implementadas (se aplicável)
+5. Funcionalidades não implementadas (se aplicável)
+6. Erros conhecidos (se aplicável)
 
-Estrutura de outputfile.txt
+### Avaliação
+- **Completude**: 1 ponto se completo e funcional, 0 caso contrário.
+- **Correção Pragmática**: 60%
+- **Correção Semântica**: 20%
+- **Documentação**: 10%
+- **Legibilidade**: 5%
+- **Relatório de Implementação**: 5%
 
-```less
+Submeter a solução via o site Moodle da disciplina até ao prazo: **5 de abril de 2024, 23:00 (hora de Lisboa)**. Submissões tardias não serão consideradas.
 
-# Cedro - Queimada
-76, Cedro, Queimada
-83, Cedro, Rabacal, Queimada
-120, Cedro, Ponta do Sol, Areeiro, Queimada
-# Ponta do Pargo - Calheta
-Calheta out of the network
-# Queimada - Boavista
-89, Queimada, Ponta do Sol, Pico Ruivo, Boavista
-# Areeiro – Pico Ruivo
-Areeiro and Pico Ruivo do not communicate
-# Moinho - Rabacal
-56, Moinho, Areeiro, Rabacal
-56, Moinho, Popias, Rabacal
-98, Moinho, Rabacal
-```
-
-## Desenvolvimento do Software
-
-O software é composto pelos seguintes módulos:
-```less
-    constants.py: Define as constantes necessárias.
-    dateTime.py: Contém funções para lidar com formatos e operações com datas e tempos.
-    infoFromFiles.py: Fornece funções para ler informações de ficheiros.
-    planning.py: Contém funções para realizar a determinação dos percursos mais rápidos.
-    infoToFiles.py: Oferece funções para escrever informações em ficheiros.
-    safeLevadas.py: Programa principal que utiliza os módulos anteriores para realizar a aplicação safeLevadas.
-```
-## Contribuidores
-```less
-    Nome do Estudante 1
-    Nome do Estudante 2
-```
-## Relatório de Implementação
-
-Consulte o relatório de implementação (relGroupN.pdf) para obter detalhes sobre as contribuições individuais de cada membro do grupo, funcionalidades extra implementadas (se aplicável), funcionalidades não implementadas (se aplicável) e erros conhecidos (se aplicável).
+## Integridade Académica
+- O projeto deve ser trabalho original dos membros do grupo.
+- Discussão de abordagens é encorajada, mas a partilha de código é proibida.
+- Software de deteção de plágio será usado para assegurar a originalidade.
